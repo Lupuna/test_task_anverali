@@ -1,0 +1,11 @@
+{%extends 'base.html' %}
+
+{% block title %} Customer {% endblock %}
+
+{% block content %}
+    <div>
+        <p>username {{customer.client}}</p>
+        <p>Customer rating {{customer.customer_rating}}</p>
+    </div>
+    {% include "includes/profile_urls.html" %}
+{%endblock%}

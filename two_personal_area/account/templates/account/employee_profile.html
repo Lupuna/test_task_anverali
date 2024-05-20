@@ -1,0 +1,11 @@
+{%extends 'base.html' %}
+
+{% block title %} Employee {% endblock %}
+
+{% block content %}
+    <div>
+        <p>username {{employee.client}}</p>
+        <p>Employee rating {{employee.employee_rating}}</p>
+    </div>
+    {% include "includes/profile_urls.html" %}
+{%endblock%}

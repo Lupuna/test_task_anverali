@@ -1,0 +1,15 @@
+{%extends 'base.html' %}
+
+{% block title %} Customer {% endblock %}
+
+{% block content %}
+    <div>
+        <form method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+        </form>
+    </div>
+    <div>
+        <a href="{% url 'account:client_profile' %}">return</a>
+    </div>
+{%endblock%}

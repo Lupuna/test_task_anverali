@@ -1,0 +1,22 @@
+{%extends 'base.html' %}
+
+{% block title %} Client {% endblock %}
+
+{% block content %}
+    <div>
+        <p>{{client.username}}</p>
+        <p>First name: {% include "includes/if_else.html" with value=client.first_name value_1=client.first_name value_2='Имя не указано' %}</p>
+        <p>Last name: {% include "includes/if_else.html" with value=client.last_name value_1=client.last_name value_2='Фамилия не указана' %}</p>
+        <p>Phone: {% include "includes/if_else.html" with value=client.phone value_1=client.phone value_2='Телефон не указан' %}</p>
+        <p>Email: {% include "includes/if_else.html" with value=client.email value_1=client.email value_2='Почта не задана' %}</p>
+        
+        Update info <a href="{% url 'account:update_client_profile' %}">this</a>
+    </div>
+    {% include "includes/profile_urls.html" %}
+    <div>
+        <form method="post" action="{% url 'registration:logout' %}">
+            {% csrf_token %}
+            <button type="submit">logout</button>
+        </form>
+    </div>
+{%endblock%}

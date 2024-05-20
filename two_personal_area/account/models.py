@@ -7,6 +7,9 @@ from django.db import models
 class Client(AbstractUser):
     phone = models.PositiveIntegerField(_('phone number'), blank=True, null=True)
 
+    def __str__(self):
+        return self.username
+
 
 class Employee(models.Model):
     client = models.OneToOneField(Client, on_delete=models.PROTECT, related_name='employee')
