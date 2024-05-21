@@ -10,7 +10,7 @@ class TestView(SettingsCase):
     def setUp(self):
         self.not_auth_client = Client()
         self.auth_client = Client()
-        self.view_client = ClientModel.objects.get(id=1)
+        self.view_client = self.user_client
         self.auth_client.force_login(self.view_client)
         self.factory = RequestFactory()
 
