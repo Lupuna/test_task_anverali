@@ -16,12 +16,31 @@ jobs:
         python-version: [3.8, 3.9, 3.11]
 
     services:
+      web-app:
+        build:
+          context: .
+        ports:
+          - "8000:8000"
+        volumes:
+          - ./two_personal_area:/two_personal_area
+        env:
+          - DB_HOST=database
+          - DB_NAME=dbname
+          - DB_USER=dbuser
+          - DB_PASS=password
+        command: >
+          sh -c "python manage.py test"
+        depends_on:
+          - database
+
+
       database:
         image: postgres:14.6-alpine
         env:
           - POSTGRES_DB=dbname
           - POSTGRES_USER=dbuser
           - POSTGRES_PASSWORD=password
+
 
       redis:
         image: redis:7.0.5-alpine
