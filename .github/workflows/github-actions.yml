@@ -25,7 +25,6 @@ jobs:
 
       redis:
         image: redis:7.0.5-alpine
-        hostname: redis
 
     steps:
     - uses: actions/checkout@v4
