@@ -1,8 +1,5 @@
-import shutil
-import tempfile
 from django.test import TestCase
-from django.conf import settings
-from account.models import Client, Employee, Customer
+from account.models import Client
 
 
 class SettingsCase(TestCase):

@@ -1,18 +1,39 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Unit tests
+on: [pull_request, workflow_call]
+
 jobs:
-  Explore-GitHub-Actions:
+  check-unit-tests:
+    name: Check unit tests
     runs-on: ubuntu-latest
+    container: python:3.11-alpine3.16
+
+    services:
+      database:
+        image: postgres:14.6-alpine
+        env:
+          - POSTGRES_DB=dbname
+          - POSTGRES_USER=dbuser
+          - POSTGRES_PASSWORD=password
+
+      redis:
+        image: redis:7.0.5-alpine
+        hostname: redis
+
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+      - users: actions/checkout@v2
+
+      - name: Install Dependencies
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          python -m pip install --upgrade pip
+          pip install -r /temp/requirements.txt
+
+      - name: Run Test's
+        env:
+          - DB_HOST=database
+          - DB_NAME=dbname
+          - DB_USER=dbuser
+          - DB_PASS=password
+
+        run:
+          python /temp/manage.py test
+
