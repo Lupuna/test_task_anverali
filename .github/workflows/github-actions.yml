@@ -23,6 +23,10 @@ jobs:
           - POSTGRES_USER=dbuser
           - POSTGRES_PASSWORD=password
 
+      redis:
+        image: redis:7.0.5-alpine
+        hostname: redis
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
