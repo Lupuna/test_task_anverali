@@ -23,7 +23,7 @@ jobs:
       run: sudo apt-get install docker-compose -y
 
     - name: Build and start containers
-      run: docker-compose up
+      run: docker-compose up --build -d
 
     - name: Wait for database to be ready
       run: |
