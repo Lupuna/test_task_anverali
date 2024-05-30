@@ -13,7 +13,19 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8, 3.9, 3.11]
+        python-version: [3.8, 3.9, 3.11]
+
+    services:
+      database:
+        image: postgres:14.6-alpine
+        env:
+          - POSTGRES_DB=dbname
+          - POSTGRES_USER=dbuser
+          - POSTGRES_PASSWORD=password
+
+      redis:
+        image: redis:7.0.5-alpine
+        hostname: redis
 
     steps:
     - uses: actions/checkout@v4
